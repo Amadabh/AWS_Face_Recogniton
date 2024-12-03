@@ -15,9 +15,21 @@
 
 ## Overview
 
-The **AWS Face Recognition Web Application** is an intelligent system that allows users to upload videos for facial recognition processing and view the results in real-time. Built using modern web technologies like **React**, **Tailwind CSS**, and **Material UI**, the application leverages AWS cloud services such as **AWS Amplify**, **Amazon Rekognition**, and **S3** to handle authentication, video storage, and facial recognition.
+The **AWS Face Recognition Web Application** is an intelligent system that allows users to upload videos for facial recognition processing and view the results in real-time. Built using modern web technologies like **React**, **Tailwind CSS**, and **Material UI**, the application leverages AWS cloud services such as **AWS Amplify**, **Amazon Lambda**, and **S3** to handle authentication, video storage, and facial recognition.
 
 The application offers a seamless user experience for uploading videos, performing facial recognition, and displaying results in a clear and interactive interface.
+
+## Live Demo
+
+To try the application, click the link below to access the deployed web app:
+
+[Try the Live Web App](https://main.d33qbkw26czp73.amplifyapp.com/)
+
+
+## System Design
+The diagram below illustrates the overall system design of the AWS Face Recognition Web Application. It shows how the frontend interacts with various AWS services like API Gateway, Lambda, S3, and Rekognition for video uploads, facial recognition processing, and real-time result updates.
+
+![System Design](./assets/system-design.png)
 
 ## Modules
 
@@ -36,7 +48,7 @@ This module leverages the `withAuthenticator` higher-order component from **AWS 
 The user interface is built with **React**, **Tailwind CSS**, and **Material UI** to create a responsive, modern design. It facilitates easy navigation for users to upload videos and view results.
 
 **Key Components:**
-- **App.tsx**: Main application component that renders authentication UI and video processing components.
+- **App.js**: Main application component that renders authentication UI and video processing components.
 - **Face.js**: Manages video uploads, displays upload status, and handles real-time updates via WebSockets.
 - **NaviBar.js**: A Material UI-based navigation bar for seamless user navigation.
 - **ResTable.js**: Displays the results of facial recognition in a user-friendly table format.
