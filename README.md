@@ -19,6 +19,8 @@ The **AWS Face Recognition Web Application** is an intelligent system that allow
 
 The application offers a seamless user experience for uploading videos, performing facial recognition, and displaying results in a clear and interactive interface.
 
+![Face Recognition](./assets/Face_recognition.png)
+
 ## Live Demo
 
 To try the application, click the link below to access the deployed web app:
