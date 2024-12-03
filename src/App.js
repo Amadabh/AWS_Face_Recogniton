@@ -1,6 +1,6 @@
 import { Amplify } from 'aws-amplify';
 import config from './aws-exports';
-
+import './App.css';
 import "@aws-amplify/ui-react/styles.css";
 import {
   withAuthenticator,
@@ -15,19 +15,93 @@ Amplify.configure(config);
 function App({ signOut }) {
   return (
     <View className="App">
-      <Card>
+      {/* <Card> */}
 
-        <Heading level={1}>We now have Auth!</Heading>
+        {/* <Heading level={1}>We now have Auth!</Heading> */}
     
-      </Card>
+      {/* </Card> */}
       <Face/>
-      <Button onClick={signOut}>Sign Out</Button>
+      {/* <Button onClick={signOut}>Sign Out</Button> */}
     </View>
   );
 }
 
 export default withAuthenticator(App);
 
+// import React, { useState } from 'react';
+// import './App.css';
+// import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/clerk-react";
+// import Face from './Face';
+// // import { Clerk } from "@clerk/clerk-js";
+
+// // const clerkPubKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
+
+// // const clerk = new Clerk(clerkPubKey);
+// // await clerk.load({
+// //   // Set load options here
+// // });
+
+
+
+
+// function App() {
+
+
+
+//   return (
+//     <div className="App flex justify-center items-center h-screen">
+//         {/* <header> */}
+//       <SignedOut>
+//         <SignInButton />
+//       </SignedOut>
+//       <SignedIn>
+//         {/* <UserButton /> */}
+//         <Face/>
+//       </SignedIn>
+//     {/* </header> */}
+
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+// import { Amplify } from 'aws-amplify';
+// import config from './aws-exports';
+
+// import "@aws-amplify/ui-react/styles.css";
+// import {
+//   withAuthenticator,
+//   Button,
+//   Heading,
+//   Image,
+//   View,
+//   Card,
+// } from "@aws-amplify/ui-react";
+// import Face from './Face';
+// // import NaviBar from './NaviBar';
+
+// Amplify.configure(config);
+// function App({ signOut }) {
+//   return (
+//     // <NaviBar/>
+//     <Face/>
+//     // <View className="App">
+//     //   <Card>
+
+//     //     <Heading level={1}>We now have Auth!</Heading>
+    
+//     //   </Card>
+//     //   <Face/>
+//     //   <Button onClick={signOut}>Sign Out</Button>
+//     // </View>
+//   );
+// }
+
+// // export default withAuthenticator(App);
+// export default App;
 // import React, { useState } from 'react';
 // import './App.css';
 // import Card from '@mui/material/Card';
