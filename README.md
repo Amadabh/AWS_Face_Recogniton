@@ -47,7 +47,7 @@ This module leverages the `withAuthenticator` higher-order component from **AWS 
 
 ### User Interface (UI)
 
-The user interface is built with **React**, **Tailwind CSS**, and **Material UI** to create a responsive, modern design. It facilitates easy navigation for users to upload videos and view results.
+The user interface is built with **React** to create a responsive, modern design. It facilitates easy navigation for users to upload videos and view results.
 
 **Key Components:**
 - **App.js**: Main application component that renders authentication UI and video processing components.
