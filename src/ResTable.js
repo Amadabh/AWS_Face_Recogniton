@@ -1,7 +1,6 @@
 import React from 'react';
 import './Face.css';
 
-
 const ResTable = ({ columns, data }) => {
   return (
     // <div style={{
