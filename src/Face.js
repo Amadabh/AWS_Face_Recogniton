@@ -468,6 +468,207 @@
 //     </div>
 //   );
 // }
+
+//Working version 1
+// import React, { useState, useRef, useEffect } from 'react';
+// import './App.css';
+// import Button from '@mui/material/Button';
+// import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+// import { styled } from '@mui/material/styles';
+// import axios from 'axios';
+// import SendIcon from '@mui/icons-material/Send';
+// import './Face.css';
+// import ResTable from './ResTable';
+// import { signOut, getCurrentUser } from 'aws-amplify/auth';
+
+// let nextid = 0;
+
+// const VisuallyHiddenInput = styled('input')({
+//   clip: 'rect(0 0 0 0)',
+//   clipPath: 'inset(50%)',
+//   height: 1,
+//   overflow: 'hidden',
+//   position: 'absolute',
+//   whiteSpace: 'nowrap',
+//   width: 1,
+// });
+
+// const columns = [
+//   { Header: 'Result', accessor: 'result' },
+// ];
+
+// function Face() {
+//   const [videoSrc, setVideoSrc] = useState(null);
+//   const [selectedFile, setSelectedFile] = useState([]);
+//   const [user, setUser] = useState(null);
+//   const [isSignedIn, setIsSignedIn] = useState(false);
+//   const [items, setItems] = useState([]);
+//   const wsRef = useRef(null);
+//   const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT;
+//   const websocket_api = process.env.REACT_APP_WEBSOCKET_URL;
+//   useEffect(() => {
+//     const fetchUser = async () => {
+//       try {
+//         const currentUser = await getCurrentUser();
+//         if (currentUser && currentUser.signInDetails.loginId) {
+//           const email = currentUser.signInDetails.loginId;
+
+//           setUser({
+//             id: currentUser.username,
+//             fullName: email.split('@')[0],
+//             email: email,
+//           });
+//           setIsSignedIn(true);
+//         } else {
+//           setIsSignedIn(false);
+//         }
+//       } catch (error) {
+//         console.log("No user is signed in.", error);
+//         setIsSignedIn(false);
+//       }
+//     };
+
+//     fetchUser();
+//   }, []);
+
+//   const handleUpload = (event) => {
+//     const file = event.target.files[0];
+//     setSelectedFile([...selectedFile, { id: nextid++, file: file }]);
+//     if (file) {
+//       const src = URL.createObjectURL(file);
+//       setVideoSrc(src);
+//     }
+//   };
+
+//   const handleSubmit = async () => {
+//     selectedFile.map(async (file) => {
+//       const response = await axios({
+//         method: "GET",
+//         url: `${API_ENDPOINT}?userId=${user.id}`,
+//       });
+//       await fetch(response.data.uploadURL, {
+//         method: "PUT",
+//         body: file.file,
+//       });
+
+//       if (!wsRef.current) {
+//         const websocket_url = `${websocket_api}?userId=${user.id}`;
+//         wsRef.current = new WebSocket(websocket_url);
+
+//         wsRef.current.onopen = () => console.log('WebSocket connected');
+//         wsRef.current.onmessage = (evt) => {
+//           const message = JSON.parse(evt.data);
+//           setItems((prevItems) => [...prevItems, message.result]);
+//         };
+//       }
+//     });
+//     setSelectedFile([]);
+//   };
+
+//   const handleSignOut = async () => {
+//     if (wsRef.current) wsRef.current.close();
+//     try {
+//       await signOut();
+//       setIsSignedIn(false);
+//       setUser(null);
+//     } catch (error) {
+//       console.error('Error signing out:', error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     return () => {
+//       if (wsRef.current) wsRef.current.close();
+//     };
+//   }, []);
+
+//   return (
+//     <div className="Face_App">
+//       {/* Header Section */}
+//       <div className="header">
+//         <h1>Face Recognition App</h1>
+//         <p>Upload a video to analyze and get results</p>
+//       </div>
+
+//       {isSignedIn ? (
+//         <>
+//           {/* User Info */}
+//           <div className="user-info">
+//             <div className="greeting">
+//               Hello, <span className="username">{user.fullName}</span>
+//             </div>
+//             <Button
+//               variant="contained"
+//               onClick={handleSignOut}
+//               className="signout-button"
+//             >
+//               Sign Out
+//             </Button>
+//           </div>
+
+//           {/* Main Content */}
+//           <div className="main-content">
+//             <h2>Upload Your Video</h2>
+//             <Button
+//               component="label"
+//               variant="contained"
+//               startIcon={<CloudUploadIcon />}
+//               className="upload-button"
+//               style={{marginBottom:"1rem"}}
+//             >
+//               Upload Video
+//               <VisuallyHiddenInput
+//                 accept="video/*"
+//                 type="file"
+//                 onChange={handleUpload}
+//               />
+//             </Button>
+
+//             {selectedFile.length > 0 && (
+//               <ul className="file-list">
+//                 {selectedFile.map((file) => (
+//                   <li key={file.id} className="file-item">
+//                     <span>{file.file.name}</span>
+//                     <button
+//                       onClick={() =>
+//                         setSelectedFile(selectedFile.filter((f) => f.id !== file.id))
+//                       }
+//                       className="remove-btn"
+//                     >
+//                       X
+//                     </button>
+//                   </li>
+//                 ))}
+//               </ul>
+//             )}
+
+//             <Button
+//               variant="contained"
+//               onClick={handleSubmit}
+//               endIcon={<SendIcon />}
+//               color="success"
+//               className="send-button"
+//               style={{marginTop:"1rem"}}
+//             >
+//               Send
+//             </Button>
+//           </div>
+//         </>
+//       ) : (
+//         <h2>Please sign in to continue</h2>
+//       )}
+
+//       {/* Table Section */}
+//       <div className="Tablecontainer">
+//         <ResTable columns={columns} data={items} />
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default Face;
+
+//Working Version2
 import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import Button from '@mui/material/Button';
@@ -478,6 +679,7 @@ import SendIcon from '@mui/icons-material/Send';
 import './Face.css';
 import ResTable from './ResTable';
 import { signOut, getCurrentUser } from 'aws-amplify/auth';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 let nextid = 0;
 
@@ -492,7 +694,7 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 const columns = [
-  { Header: 'Result', accessor: 'result' },
+  { Header: 'Analysis Result', accessor: 'result' },
 ];
 
 function Face() {
@@ -584,35 +786,50 @@ function Face() {
     <div className="Face_App">
       {/* Header Section */}
       <div className="header">
-        <h1>Face Recognition App</h1>
-        <p>Upload a video to analyze and get results</p>
+      <h1 className="faceiq-title">FACEIQ INC.</h1>
+        {/* <p>Upload a video to analyze and get results</p> */}
       </div>
+
+      <div className='Main_frame'>
+
 
       {isSignedIn ? (
         <>
           {/* User Info */}
           <div className="user-info">
-            <div className="greeting">
-              Hello, <span className="username">{user.fullName}</span>
+            <div className="greeting" style={{color:'white'}}>
+              Hello, <span className="username" style={{color:'white'}}>{user.fullName}</span>
             </div>
             <Button
-              variant="contained"
+              // variant="contained"
               onClick={handleSignOut}
               className="signout-button"
+      
             >
-              Sign Out
+        <ExitToAppIcon         style={{color:"white",width:"3em",height:"2em"}} />
             </Button>
           </div>
 
           {/* Main Content */}
           <div className="main-content">
-            <h2>Upload Your Video</h2>
+            <h2  style={{color:'white'}}>Upload Your Video</h2>
             <Button
               component="label"
               variant="contained"
               startIcon={<CloudUploadIcon />}
               className="upload-button"
-              style={{marginBottom:"1rem"}}
+              style={{
+                marginBottom: "1rem",
+                border: "2px dotted rgba(255, 255, 255, 0.6)", /* White dotted border */
+                padding: "12px 25px",
+                height:"10em",
+                width:"30em",
+                borderRadius: "8px",
+                cursor: "pointer",
+                backgroundColor: "rgba(255, 255, 255, 0.1)", /* Subtle transparent white */
+                color: "white", /* Ensures text is readable */
+                transition: "all 0.3s ease-in-out",
+              }}
             >
               Upload Video
               <VisuallyHiddenInput
@@ -623,9 +840,9 @@ function Face() {
             </Button>
 
             {selectedFile.length > 0 && (
-              <ul className="file-list">
+              <ul className="file-list" >
                 {selectedFile.map((file) => (
-                  <li key={file.id} className="file-item">
+                  <li key={file.id} className="file-item" style={{   width:"28em"}}>
                     <span>{file.file.name}</span>
                     <button
                       onClick={() =>
@@ -644,11 +861,11 @@ function Face() {
               variant="contained"
               onClick={handleSubmit}
               endIcon={<SendIcon />}
-              color="success"
+              color="error"
               className="send-button"
               style={{marginTop:"1rem"}}
             >
-              Send
+              Analyze
             </Button>
           </div>
         </>
@@ -660,8 +877,13 @@ function Face() {
       <div className="Tablecontainer">
         <ResTable columns={columns} data={items} />
       </div>
+      </div>
+
     </div>
   );
 }
 
 export default Face;
+
+
+
