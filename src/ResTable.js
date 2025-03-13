@@ -1,6 +1,7 @@
 import React from 'react';
 import './Face.css';
 
+
 const ResTable = ({ columns, data }) => {
   return (
     // <div style={{
@@ -10,7 +11,15 @@ const ResTable = ({ columns, data }) => {
     <tr className='Tablehead'>
           {columns.map((val,key) =>{
             return(
-              <th>{val.Header}</th>
+              <th style={{ display: "flex", alignItems: "center", gap: "0.5em", justifyContent:"center" }}> <div>
+                <img
+              src="/Analyze_Icon.png" // ✅ Correct way to access from `public/`
+              alt="Analyze Icon"
+              style={{ width: "4em", height: "4em" }} // Adjust as needed
+            />
+                </div>  <div style={{fontSize:"25px", marginBottom:"0.3em"}}>
+                {val.Header}
+                  </div> </th>
             )
           })}
             
@@ -22,7 +31,7 @@ const ResTable = ({ columns, data }) => {
        {data.map((val, key) => {
             return (
                 <tr key={key}>
-                  <td>{val}</td>
+                  <td style={{color:"white"}}>{val}</td>
                     {/* <td>{val.name}</td>
                     <td>{val.age}</td> */}
                     {/* <td>{val.email}</td> */}
